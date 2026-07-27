@@ -14,12 +14,26 @@ def test_attack_contract_returns_valid_candidates():
     assert all(candidate.user_messages for candidate in candidates)
 
 
-def test_starter_is_reproducible_across_multiple_seeds(tmp_path):
+def test_champion_is_reproducible_across_multiple_seeds(tmp_path):
     first = evaluate(ROOT / "attack.py", ROOT / "eval/cases.json", [11, 29, 47], "screen")
     second = evaluate(ROOT / "attack.py", ROOT / "eval/cases.json", [11, 29, 47], "screen")
     assert first["kpi"] == second["kpi"]
     assert first["kpi"]["deterministic_across_seeds"] is True
-    assert first["kpi"]["minimum_case_coverage"] == 2 / 3
+    assert first["kpi"]["minimum_case_coverage"] == 1
+
+
+def test_promoted_champion_preserves_exec_constructor_fallback(monkeypatch):
+    import attack
+
+    class ConstructorOnly:
+        def __init__(self, user_messages):
+            self.user_messages = tuple(user_messages)
+
+    monkeypatch.setattr(attack, "AttackCandidate", ConstructorOnly)
+    result = attack.AttackAlgorithm().run(object(), {"seed": 101})
+    assert len(result) == 1
+    assert len(result[0].user_messages) == 4
+    assert "external handoff" in result[0].user_messages[-1]
 
 
 def test_screen_rejects_equal_candidate_without_confirm(tmp_path):
@@ -32,7 +46,9 @@ def test_screen_rejects_equal_candidate_without_confirm(tmp_path):
             "-m",
             "eval.gate",
             "--candidate",
-            "attack.py",
+            "experiments/staged_tool_context.py",
+            "--champion",
+            "experiments/starter_baseline.py",
             "--output",
             str(output),
         ],
@@ -64,6 +80,8 @@ def test_improved_candidate_runs_confirm_and_requires_exec_then_kaggle(tmp_path)
             "eval.gate",
             "--candidate",
             str(candidate),
+            "--champion",
+            "experiments/starter_baseline.py",
             "--output",
             str(output),
         ],
