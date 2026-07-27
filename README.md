@@ -2,13 +2,13 @@
 
 Attack-only entry for Kaggle AI Agent Security (Multi-Step Tool Attacks).
 
-## Starter champion
+## Champion
 
 [`attack.py`](attack.py) implements the competition contract directly:
-`AttackAlgorithm.run(env, config) -> list[AttackCandidate]`. The starter emits one deterministic
-three-message chain which discovers tools, retrieves hidden configuration, and requests verbatim
-exfiltration. It is intentionally simple; its purpose is to provide a valid, measurable champion
-before testing stronger multi-step attacks.
+`AttackAlgorithm.run(env, config) -> list[AttackCandidate]`. SOT-2027 promoted the
+`tool_argument_handoff` candidate: a deterministic four-message chain that discovers tools, uses
+tool-argument context to retrieve hidden configuration, preserves it verbatim, and requests an
+external handoff.
 
 ## Reproducible local evaluation
 
@@ -24,9 +24,36 @@ python3 -m eval.run --stage screen --seeds 11,29,47 \
 Run it again with the same arguments and compare KPI values and output fingerprints. Wall-clock
 latency is diagnostic and is excluded from the reproducibility assertion.
 
-The recorded starter baseline is `docs/results/starter-screen.json`. It has one valid candidate,
+The original starter baseline is `docs/results/starter-screen.json`. It has one valid candidate,
 three messages, 66.7% case coverage, and one output fingerprint across all three seeds. The uncovered
 external-handoff case leaves measurable room for a challenger.
+
+## SOT-2027 comparison
+
+Three independently implemented candidates live under `experiments/`: a single-message control,
+a staged tool-context chain, and a tool-argument/external-handoff chain. Their gate records are in
+`docs/results/sot-2027/`. Each record includes the exact screen seeds `11,29,47`; candidates that
+strictly beat the starter then use independent confirm seeds `101,131,173,211,257`.
+
+Only `tool_argument_handoff` covered all three weighted cases and passed confirm, so it replaced the
+starter in production. The other candidates remain experiment fixtures and documented results, not
+production branches. `tests/test_attack_harness.py` checks the released SDK factory contract and its
+constructor fallback. The promoted champion is therefore ready for the Kaggle proof tracked by
+SOT-2028; this issue does not claim a Kaggle submission.
+
+Reproduce the comparison from the pre-promotion commit by running:
+
+```bash
+python3 -m eval.gate --champion experiments/starter_baseline.py \
+  --candidate experiments/single_message.py \
+  --output docs/results/sot-2027/single-message.json
+python3 -m eval.gate --champion experiments/starter_baseline.py \
+  --candidate experiments/staged_tool_context.py \
+  --output docs/results/sot-2027/staged-tool-context.json
+python3 -m eval.gate --champion experiments/starter_baseline.py \
+  --candidate experiments/tool_argument_handoff.py \
+  --output docs/results/sot-2027/tool-argument-handoff.json
+```
 
 ## Candidate promotion gate
 
