@@ -44,6 +44,16 @@ The released `aicomp-sdk` constructor contract is verified locally. The promotio
 `run_kaggle_proof` as the next external proof action; SOT-2080 owns packaging and the Kaggle run, so
 this repository does not claim an unperformed competition submission.
 
+## SOT-2080 Kaggle proof
+
+`kaggle/kernel/submit.py` embeds the promoted `attack.py` byte-for-byte and verifies its SHA-256 before
+materializing it at `/kaggle/working/attack.py`. The private, internet-disabled Kaggle script then
+serves `JEDAttackInferenceServer` during the competition rerun. Run
+`python3 scripts/test_exec_compat.py` before every kernel push; it checks payload identity and executes
+the champion without `__file__`/`__name__`, from an unrelated cwd, with outbound networking disabled.
+The kernel version, submission ref/status/score, champion commit, and promotion-gate provenance are
+recorded in `docs/results/sot-2080-kaggle-proof.json`.
+
 ## SOT-2027 comparison
 
 Three independently implemented candidates live under `experiments/`: a single-message control,
