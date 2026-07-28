@@ -4,10 +4,19 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from pathlib import Path
 
 from eval.run import evaluate, parse_seeds
+
+
+def provenance(file: Path) -> dict[str, str]:
+    resolved = file.resolve()
+    return {
+        "path": str(file),
+        "sha256": hashlib.sha256(resolved.read_bytes()).hexdigest(),
+    }
 
 
 def passes(candidate: dict, champion: dict) -> bool:
@@ -53,6 +62,10 @@ def main() -> None:
     screen_passed = passes(candidate_screen, champion_screen)
     document = {
         "schema_version": "context-aware-attack-gate/v2",
+        "provenance": {
+            "incumbent_champion": provenance(args.champion),
+            "candidate": provenance(args.candidate),
+        },
         "criteria": {
             "deterministic": True,
             "coverage": "minimum strictly improves and mean does not regress",
