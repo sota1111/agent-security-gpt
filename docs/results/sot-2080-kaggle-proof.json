@@ -16,9 +16,9 @@
   },
   "kaggle": {
     "competition": "ai-agent-security-multi-step-tool-attacks",
-    "kernel": "sota1111/agent-security-gpt-cli-baseline",
-    "version": null,
-    "submission_ref": null,
+    "kernel": "sota1111/agent-security-gpt-champion",
+    "version": 2,
+    "submission_ref": "55051758",
     "status": "pending",
     "public_score": null,
     "private_score": null
