@@ -6,9 +6,10 @@ Attack-only entry for Kaggle AI Agent Security (Multi-Step Tool Attacks).
 
 [`attack.py`](attack.py) implements the competition contract directly:
 `AttackAlgorithm.run(env, config) -> list[AttackCandidate]`. SOT-2027 promoted the
-`tool_argument_handoff` candidate: a deterministic four-message chain that discovers tools, uses
-tool-argument context to retrieve hidden configuration, preserves it verbatim, and requests an
-external handoff.
+`context_conditioned_portfolio` candidate. It deterministically selects independent chains for
+available tool metadata, prior conversation/tool state, and external handoff information. Selection
+is capped at three candidates and exact chains are de-duplicated. When none of those context fields
+is available, it returns the previous four-message champion unchanged.
 
 ## Reproducible local evaluation
 
@@ -29,6 +30,19 @@ latency is diagnostic and is excluded from the reproducibility assertion.
 The current champion baseline is `docs/results/context-aware-champion-screen.json`. It records the
 full v2 result schema, fixture IDs, per-context covered surfaces, and one stable output fingerprint
 across all three screen seeds.
+
+## SOT-2079 promotion
+
+`docs/results/sot-2079-context-portfolio-gate.json` compares the previous
+`tool_argument_handoff` champion and the context-conditioned portfolio under identical fixtures.
+The record includes both artifact SHA-256 values, per-context candidate fingerprints, screen seeds,
+and independent confirm seeds. The portfolio reached mean/minimum context coverage `1.0/1.0`
+without duplicate candidates and passed both stages, so `attack.py` was updated to the promoted
+portfolio. `docs/results/sot-2079-champion-screen.json` is its post-promotion baseline.
+
+The released `aicomp-sdk` constructor contract is verified locally. The promotion record retains
+`run_kaggle_proof` as the next external proof action; SOT-2080 owns packaging and the Kaggle run, so
+this repository does not claim an unperformed competition submission.
 
 ## SOT-2027 comparison
 
