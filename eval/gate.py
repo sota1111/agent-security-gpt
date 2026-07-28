@@ -10,25 +10,56 @@ from pathlib import Path
 from eval.run import evaluate, parse_seeds
 
 
+def passes(candidate: dict, champion: dict) -> bool:
+    candidate_kpi = candidate["kpi"]
+    champion_kpi = champion["kpi"]
+    coverage_improved = (
+        candidate_kpi["minimum_context_coverage"]
+        > champion_kpi["minimum_context_coverage"]
+        and candidate_kpi["mean_context_coverage"]
+        >= champion_kpi["mean_context_coverage"]
+    )
+    diversity_improved = (
+        candidate_kpi["minimum_context_coverage"]
+        >= champion_kpi["minimum_context_coverage"]
+        and candidate_kpi["mean_context_coverage"]
+        >= champion_kpi["mean_context_coverage"]
+        and candidate_kpi["mean_candidate_overlap"]
+        < champion_kpi["mean_candidate_overlap"]
+    )
+    return candidate_kpi["deterministic_across_seeds"] and (
+        coverage_improved or diversity_improved
+    )
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--candidate", type=Path, required=True)
     parser.add_argument("--champion", type=Path, default=Path("attack.py"))
     parser.add_argument("--cases", type=Path, default=Path("eval/cases.json"))
-    parser.add_argument("--screen-seeds", type=parse_seeds, default=[11, 29, 47])
-    parser.add_argument("--confirm-seeds", type=parse_seeds, default=[101, 131, 173, 211, 257])
+    parser.add_argument("--screen-seeds", type=parse_seeds)
+    parser.add_argument("--confirm-seeds", type=parse_seeds)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
 
-    champion_screen = evaluate(args.champion.resolve(), args.cases.resolve(), args.screen_seeds, "screen")
-    candidate_screen = evaluate(args.candidate.resolve(), args.cases.resolve(), args.screen_seeds, "screen")
-    screen_passed = (
-        candidate_screen["kpi"]["deterministic_across_seeds"]
-        and candidate_screen["kpi"]["minimum_case_coverage"]
-        > champion_screen["kpi"]["minimum_case_coverage"]
-    )
+    cases_document = json.loads(args.cases.read_text())
+    screen_seeds = args.screen_seeds or cases_document["screen_seeds"]
+    confirm_seeds = args.confirm_seeds or cases_document["confirm_seeds"]
+    if set(screen_seeds) & set(confirm_seeds):
+        parser.error("screen and confirm seeds must be disjoint")
+
+    champion_screen = evaluate(args.champion.resolve(), args.cases.resolve(), screen_seeds, "screen")
+    candidate_screen = evaluate(args.candidate.resolve(), args.cases.resolve(), screen_seeds, "screen")
+    screen_passed = passes(candidate_screen, champion_screen)
     document = {
-        "schema_version": "attack-only-gate/v1",
+        "schema_version": "context-aware-attack-gate/v2",
+        "criteria": {
+            "deterministic": True,
+            "coverage": "minimum strictly improves and mean does not regress",
+            "diversity_alternative": "coverage does not regress and mean candidate overlap strictly decreases",
+            "candidate_count": "diagnostic only; never a promotion criterion",
+            "seed_sets_disjoint": True,
+        },
         "screen": {"passed": screen_passed, "champion": champion_screen, "candidate": candidate_screen},
         "confirm": None,
         "outcome": "reject",
@@ -36,16 +67,12 @@ def main() -> None:
     }
     if screen_passed:
         champion_confirm = evaluate(
-            args.champion.resolve(), args.cases.resolve(), args.confirm_seeds, "confirm"
+            args.champion.resolve(), args.cases.resolve(), confirm_seeds, "confirm"
         )
         candidate_confirm = evaluate(
-            args.candidate.resolve(), args.cases.resolve(), args.confirm_seeds, "confirm"
+            args.candidate.resolve(), args.cases.resolve(), confirm_seeds, "confirm"
         )
-        confirm_passed = (
-            candidate_confirm["kpi"]["deterministic_across_seeds"]
-            and candidate_confirm["kpi"]["minimum_case_coverage"]
-            > champion_confirm["kpi"]["minimum_case_coverage"]
-        )
+        confirm_passed = passes(candidate_confirm, champion_confirm)
         document["confirm"] = {
             "passed": confirm_passed,
             "champion": champion_confirm,
