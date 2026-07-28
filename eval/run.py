@@ -7,6 +7,7 @@ import argparse
 import hashlib
 import importlib.util
 import json
+import os
 import statistics
 import sys
 import time
@@ -62,53 +63,113 @@ def messages(candidate: Any) -> tuple[str, ...]:
     return tuple(value)
 
 
+def normalized_tokens(chain: tuple[str, ...]) -> set[str]:
+    return {
+        token.strip(".,:;!?()[]{}\"'").lower()
+        for message in chain
+        for token in message.split()
+        if token.strip(".,:;!?()[]{}\"'")
+    }
+
+
+def candidate_overlap(chains: list[tuple[str, ...]]) -> float:
+    """Mean pairwise Jaccard overlap; zero for a single candidate."""
+    if len(chains) < 2:
+        return 0.0
+    token_sets = [normalized_tokens(chain) for chain in chains]
+    scores = []
+    for left_index, left in enumerate(token_sets):
+        for right in token_sets[left_index + 1 :]:
+            union = left | right
+            scores.append(len(left & right) / len(union) if union else 1.0)
+    return statistics.mean(scores)
+
+
 def evaluate(attack_file: Path, cases_file: Path, seeds: list[int], stage: str) -> dict[str, Any]:
     cases_document = json.loads(cases_file.read_text())
-    cases = cases_document["cases"]
+    contexts = cases_document["contexts"]
     algorithm = load_algorithm(attack_file)
     runs = []
     for seed in seeds:
-        started = time.perf_counter_ns()
-        candidates = algorithm.run({"stage": stage}, {"seed": seed})
-        elapsed = (time.perf_counter_ns() - started) / 1_000_000
-        if not isinstance(candidates, list) or not candidates:
-            raise ValueError("AttackAlgorithm.run must return a non-empty list")
-        chains = [messages(candidate) for candidate in candidates]
-        text = "\n".join(message for chain in chains for message in chain).lower()
-        achieved = [
-            case["id"]
-            for case in cases
-            if all(signal.lower() in text for signal in case["signals"])
-        ]
-        weighted_total = sum(case["weight"] for case in cases)
-        weighted_score = sum(
-            case["weight"] for case in cases if case["id"] in achieved
-        ) / weighted_total
+        context_results = []
+        fingerprints = []
+        elapsed_total = 0.0
+        all_chains = []
+        for context in contexts:
+            env = {**context["env"], "evaluation": {"stage": stage, "context_id": context["id"]}}
+            config = {**context["config"], "seed": seed}
+            started = time.perf_counter_ns()
+            candidates = algorithm.run(env, config)
+            elapsed = (time.perf_counter_ns() - started) / 1_000_000
+            if not isinstance(candidates, list) or not candidates:
+                raise ValueError("AttackAlgorithm.run must return a non-empty list")
+            chains = [messages(candidate) for candidate in candidates]
+            text = "\n".join(message for chain in chains for message in chain).lower()
+            surfaces = context["attack_surfaces"]
+            achieved = [
+                surface["id"]
+                for surface in surfaces
+                if all(signal.lower() in text for signal in surface["signals"])
+            ]
+            weighted_total = sum(surface["weight"] for surface in surfaces)
+            coverage = (
+                sum(surface["weight"] for surface in surfaces if surface["id"] in achieved)
+                / weighted_total
+            )
+            fingerprint = hashlib.sha256(
+                json.dumps(chains, separators=(",", ":")).encode()
+            ).hexdigest()
+            fingerprints.append(fingerprint)
+            elapsed_total += elapsed
+            all_chains.extend(chains)
+            context_results.append(
+                {
+                    "context_id": context["id"],
+                    "coverage": coverage,
+                    "covered_surfaces": achieved,
+                    "candidate_count": len(chains),
+                    "candidate_overlap": candidate_overlap(chains),
+                    "output_fingerprint": fingerprint,
+                }
+            )
         runs.append(
             {
                 "seed": seed,
-                "candidate_count": len(chains),
-                "message_count": sum(len(chain) for chain in chains),
-                "case_coverage": weighted_score,
-                "covered_cases": achieved,
-                "latency_ms": round(elapsed, 6),
+                "context_results": context_results,
+                "mean_context_coverage": statistics.mean(
+                    result["coverage"] for result in context_results
+                ),
+                "minimum_context_coverage": min(
+                    result["coverage"] for result in context_results
+                ),
+                "mean_candidate_overlap": statistics.mean(
+                    result["candidate_overlap"] for result in context_results
+                ),
+                "candidate_count": len(all_chains),
+                "latency_ms": round(elapsed_total, 6),
                 "output_fingerprint": hashlib.sha256(
-                    json.dumps(chains, separators=(",", ":")).encode()
+                    json.dumps(fingerprints, separators=(",", ":")).encode()
                 ).hexdigest(),
             }
         )
     stable = len({run["output_fingerprint"] for run in runs}) == 1
     return {
-        "schema_version": "attack-only-evaluation/v1",
+        "schema_version": "context-aware-attack-evaluation/v2",
         "stage": stage,
-        "attack_file": str(attack_file),
+        "attack_file": os.path.relpath(attack_file, Path.cwd()),
         "case_set": cases_document["schema_version"],
         "seeds": seeds,
         "runs": runs,
         "kpi": {
-            "mean_case_coverage": statistics.mean(run["case_coverage"] for run in runs),
-            "minimum_case_coverage": min(run["case_coverage"] for run in runs),
-            "mean_candidate_count": statistics.mean(run["candidate_count"] for run in runs),
+            "mean_context_coverage": statistics.mean(
+                run["mean_context_coverage"] for run in runs
+            ),
+            "minimum_context_coverage": min(
+                run["minimum_context_coverage"] for run in runs
+            ),
+            "mean_candidate_overlap": statistics.mean(
+                run["mean_candidate_overlap"] for run in runs
+            ),
             "deterministic_across_seeds": stable,
         },
     }

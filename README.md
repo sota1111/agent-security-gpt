@@ -12,9 +12,11 @@ external handoff.
 
 ## Reproducible local evaluation
 
-The versioned cases in `eval/cases.json` measure candidate validity, message/candidate counts,
-determinism, latency, and coverage of three starter attack objectives. Run the starter over the
-fixed screen seeds:
+The versioned fixtures in `eval/cases.json` pass three distinct runtime contexts to every algorithm:
+tool metadata/argument schema, prior conversation/tool state, and an external handoff destination.
+For each context the evaluator records weighted attack-surface coverage, candidate count, pairwise
+candidate overlap, determinism, and latency. Candidate count is diagnostic only: adding duplicate
+candidates cannot improve the promotion decision. Run the champion over the fixed screen seeds:
 
 ```bash
 python3 -m eval.run --stage screen --seeds 11,29,47 \
@@ -24,9 +26,9 @@ python3 -m eval.run --stage screen --seeds 11,29,47 \
 Run it again with the same arguments and compare KPI values and output fingerprints. Wall-clock
 latency is diagnostic and is excluded from the reproducibility assertion.
 
-The original starter baseline is `docs/results/starter-screen.json`. It has one valid candidate,
-three messages, 66.7% case coverage, and one output fingerprint across all three seeds. The uncovered
-external-handoff case leaves measurable room for a challenger.
+The current champion baseline is `docs/results/context-aware-champion-screen.json`. It records the
+full v2 result schema, fixture IDs, per-context covered surfaces, and one stable output fingerprint
+across all three screen seeds.
 
 ## SOT-2027 comparison
 
@@ -64,8 +66,11 @@ python3 -m eval.gate --candidate experiments/challenger.py \
   --output docs/results/challenger-gate.json
 ```
 
-The gate first uses screen seeds `11,29,47`. Confirm seeds `101,131,173,211,257` execute only when
-the challenger is deterministic and strictly exceeds the champion's minimum case coverage.
+The gate reads screen seeds `11,29,47` and disjoint confirm seeds `101,131,173,211,257` from the
+fixture document. Both stages compare champion and candidate under exactly the same contexts and seeds.
+A stage passes only when output is deterministic and either (a) minimum context coverage strictly
+improves without mean coverage regression, or (b) coverage does not regress while mean pairwise
+candidate overlap strictly decreases. The complete criteria are emitted into every gate result.
 
 - Rejection emits ordered actions `revert_candidate_code` then `record_result_in_docs`. Keep
   `attack.py` unchanged, revert the experimental candidate, and commit the gate JSON/rationale.
