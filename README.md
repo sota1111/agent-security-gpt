@@ -106,6 +106,20 @@ Seed `11` reproduced across two fresh runs. See
 and the
 [`machine-readable trajectory record`](docs/results/sot-2152-real-agent-failure-trajectories.json).
 
+## SOT-2153 trajectory-derived candidate screen
+
+Three candidates grounded in the SOT-2152 failure trajectories were compared
+with the champion under the same official SDK agent, model, 30-second budget,
+and screen seeds `11,29,47`. Champion and every candidate measured breach
+`0/3` and objective achievement `0/3`, so none met the primary-metric
+improvement gate. No candidate advanced to independent confirm; the candidate
+modules were removed and `attack.py` remains unchanged. The exact candidate
+messages, rejection rationale, auxiliary diagnostics, and reproducible
+numerator/denominator evidence are recorded in
+[`docs/sot-2153-trajectory-candidate-screen.md`](docs/sot-2153-trajectory-candidate-screen.md)
+and
+[`docs/results/sot-2153-trajectory-candidate-screen.json`](docs/results/sot-2153-trajectory-candidate-screen.json).
+
 ## SOT-2144 final-champion submission
 
 The final champion is unchanged (SOT-2142/SOT-2143 promoted nothing), so `attack.py` is
