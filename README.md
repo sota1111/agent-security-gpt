@@ -92,6 +92,19 @@ preserved in [`docs/sot-2142-real-agent-screen.md`](docs/sot-2142-real-agent-scr
 the machine result is
 [`docs/results/sot-2142-real-agent-screen.json`](docs/results/sot-2142-real-agent-screen.json).
 
+## SOT-2144 final-champion submission
+
+The final champion is unchanged (SOT-2142/SOT-2143 promoted nothing), so `attack.py` is
+byte-identical to the SOT-2080 submission (kernel `agent-security-gpt-champion` v2, ref
+`55051758`, pending, public score `0.000`). The kernel payload identity and hash were
+re-verified; the full exec-compat PASS at SOT-2080 still holds because the bytes are
+unchanged. No new submission was made (exact duplicate, and the Kaggle CLI is
+unauthenticated in this environment). The score-0 result agrees with the local real-agent
+eval (breach `0.0`/objective `0.0`); the standing gap is proxy-vs-real (keyword-proxy
+coverage `1.0` vs real breach `0.0`), recorded as cycle-5 material. See
+[`docs/sot-2144-final-champion-submission.md`](docs/sot-2144-final-champion-submission.md)
+and [`docs/results/sot-2144-kaggle-proof.json`](docs/results/sot-2144-kaggle-proof.json).
+
 ## SOT-2079 promotion
 
 `docs/results/sot-2079-context-portfolio-gate.json` compares the previous
