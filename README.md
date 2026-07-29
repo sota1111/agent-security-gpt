@@ -31,6 +31,50 @@ The current champion baseline is `docs/results/context-aware-champion-screen.jso
 full v2 result schema, fixture IDs, per-context covered surfaces, and one stable output fingerprint
 across all three screen seeds.
 
+## Official SDK real-agent transfer evaluation
+
+`eval.real_agent` complements the text-coverage proxy with the official SDK's
+LLM-agent path. It constructs the agent through `build_agent_factory`, executes
+the champion with `eval_attack`, applies the beatable-rules `Guardrail`, and
+derives breach/objective outcomes from the returned tool trajectories.
+
+Screen and confirm seeds are mandatory and must be disjoint. The JSON result
+stores the selected agent/model, SDK/scoring/guardrail paths, seed sets,
+per-trial phase and outcomes, and the numerator/denominator for both primary
+rates. Coverage remains a diagnostic: a candidate cannot promote on coverage or
+candidate shape alone. It must improve either real-agent breach success or
+objective achievement without regressing the other on independent confirm
+seeds.
+
+The checked-in SOT-2141 baseline is
+`docs/results/sot-2141-real-agent-baseline.json`. It uses the ungated
+`Qwen/Qwen2.5-0.5B-Instruct` model through the SDK's `gemma` adapter because
+the native Gemma model and OpenAI agent require unavailable credentials. This
+is a real local LLM-agent trajectory measurement, not a claim of hidden Kaggle
+grader equivalence.
+
+Reproduce it from the repository root after installing `requirements.txt` and
+downloading the model:
+
+```bash
+python3 -m eval.real_agent \
+  --agent gemma \
+  --model-path .models/qwen2.5-0.5b-instruct \
+  --model-id Qwen/Qwen2.5-0.5B-Instruct \
+  --screen-seeds 11 \
+  --confirm-seeds 101,131 \
+  --budget 30 \
+  --proxy-coverage-rate 1.0 \
+  --output docs/results/sot-2141-real-agent-baseline.json
+```
+
+The baseline measured zero retained breach/objective trajectories in both
+phases: screen breach `0/1`, objective `0/1`; confirm breach `0/2`, objective
+`0/2`. The coverage proxy is `1.0`, so its absolute gap from both real-agent
+rates is `1.0`. Repeating screen seed `11` and confirm seed `101` reproduced the
+same per-trial counts. This large proxy/trajectory disagreement is why the
+promotion gate now rejects coverage-only improvements.
+
 ## SOT-2079 promotion
 
 `docs/results/sot-2079-context-portfolio-gate.json` compares the previous

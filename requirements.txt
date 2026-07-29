@@ -1,5 +1,6 @@
 # Installed by the Kaggle competition runtime; pinned locally for contract checks.
-aicomp-sdk>=0.1
+aicomp-sdk>=3.1.2
+accelerate>=1.0
 
 # Local evaluation only.
 pytest>=8,<9
