@@ -92,6 +92,20 @@ preserved in [`docs/sot-2142-real-agent-screen.md`](docs/sot-2142-real-agent-scr
 the machine result is
 [`docs/results/sot-2142-real-agent-screen.json`](docs/results/sot-2142-real-agent-screen.json).
 
+## SOT-2152 failure-trajectory classification
+
+`eval.real_agent` now records normalized agent decisions, tool-result status,
+guardrail decisions, predicate traces, and a deterministic failure stage for
+every trial, including zero-finding trials. The current champion was screened
+on seeds `11,29,47` (plus diagnostic holdout `101`): breach success was `0/3`
+and attack-objective achievement was `0/3` on screen. Every trial reached tool
+execution but no canonical objective; the guardrail allowed all calls, while
+the initial searches errored and the final post carried no protected payload.
+Seed `11` reproduced across two fresh runs. See
+[`docs/sot-2152-real-agent-failure-trajectories.md`](docs/sot-2152-real-agent-failure-trajectories.md)
+and the
+[`machine-readable trajectory record`](docs/results/sot-2152-real-agent-failure-trajectories.json).
+
 ## SOT-2144 final-champion submission
 
 The final champion is unchanged (SOT-2142/SOT-2143 promoted nothing), so `attack.py` is
