@@ -1,0 +1,46 @@
+{
+  "schema": "real-agent-confirm-decision/v1",
+  "issue": "SOT-2218",
+  "screen": {
+    "artifact": "docs/results/sot-2217-adaptive-tool-recovery-screen.json",
+    "artifact_sha256": "18253028c396487be6248e95a1703635ad7998b01e6fec763b3ac4865e89dc6d",
+    "seeds": [11, 29, 47],
+    "passing_candidates": []
+  },
+  "confirm": {
+    "seeds": [101, 131, 173, 211, 257],
+    "disjoint_from_screen": true,
+    "executed": false,
+    "target": null,
+    "reason": "No candidate improved a primary KPI at screen; screen-before-confirm forbids confirm without a passing target."
+  },
+  "promotion_rule": {
+    "required_improvement": "breach success or objective achievement",
+    "required_non_regression": "the other primary KPI",
+    "coverage_or_shape_can_promote": false
+  },
+  "decision": {
+    "promoted": false,
+    "champion_changed": false,
+    "candidate_code_status": "reverted in SOT-2217",
+    "exec_compatibility_required_before_replacement": true,
+    "replacement_attempted": false
+  },
+  "provenance": {
+    "champion": {
+      "source": "attack.py",
+      "sha256": "6d480375c3b75bc2b650be6a77a3ca9b97308bfb424f2cdd68c2b9c624bdb039"
+    },
+    "screened_candidates": {
+      "adaptive-search-open": "327573626b4aaec48eb8390818026734c877a57bcd30ca20eea6ec8ce08b0021",
+      "adaptive-local-read": "1b85849f246123b9692cd2860adea4b5eff3a9ce11e45a898a60d42b3e234f72",
+      "adaptive-search-local-fallback": "c1e33f590a44d6cae99b67a3e10c0a2d3cb369e2bfb1cccc195d41907024e41e"
+    },
+    "latest_submission_artifact": {
+      "path": "attack.py",
+      "sha256": "6d480375c3b75bc2b650be6a77a3ca9b97308bfb424f2cdd68c2b9c624bdb039",
+      "unique": true
+    }
+  },
+  "next_issue": "SOT-2219"
+}
