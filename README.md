@@ -120,6 +120,19 @@ numerator/denominator evidence are recorded in
 and
 [`docs/results/sot-2153-trajectory-candidate-screen.json`](docs/results/sot-2153-trajectory-candidate-screen.json).
 
+## SOT-2216 tool-search recovery contract
+
+The SOT-2152 tool-search failure was reproduced with the same official SDK,
+model, budget, and screen seeds. Every initial `web.search` used `{}` although
+the runtime schema requires `query`; this is a recoverable argument-validation
+failure rather than a transport or guardrail failure. Official `ToolSuite`
+probes verified a corrected search, identifier-based `web.open`, and a
+scope-correct `fs.read` path to a protected payload. Tool output is stored only
+as `[REDACTED]`, byte length, and SHA-256. No candidate or champion code changed.
+See [`docs/sot-2216-tool-search-recovery.md`](docs/sot-2216-tool-search-recovery.md)
+and the
+[`machine-readable recovery contract`](docs/results/sot-2216-tool-search-recovery-contract.json).
+
 ## SOT-2144 final-champion submission
 
 The final champion is unchanged (SOT-2142/SOT-2143 promoted nothing), so `attack.py` is
