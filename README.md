@@ -145,6 +145,17 @@ evidence is preserved in
 and the
 [`machine-readable screen result`](docs/results/sot-2217-adaptive-tool-recovery-screen.json).
 
+## SOT-2218 independent-confirm decision
+
+The SOT-2217 screen produced no passing candidate, so the inherited
+screen-before-confirm contract forbids running independent confirm merely to
+manufacture a comparison. The confirm target is explicitly `null`; confirm
+seeds `101,131,173,211,257` are disjoint from screen seeds `11,29,47` but were
+not consumed. The champion and submission payload remain `attack.py` at SHA-256
+`6d480375c3b75bc2b650be6a77a3ca9b97308bfb424f2cdd68c2b9c624bdb039`.
+See the [decision record](docs/sot-2218-adaptive-recovery-confirm.md) and its
+[machine-readable provenance](docs/results/sot-2218-adaptive-recovery-confirm.json).
+
 ## SOT-2144 final-champion submission
 
 The final champion is unchanged (SOT-2142/SOT-2143 promoted nothing), so `attack.py` is
