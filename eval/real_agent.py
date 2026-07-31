@@ -135,22 +135,33 @@ def run_trial(
     trial_agent_factory = sdk["build_agent_factory"](
         agent, debug_sink=debug_sink
     )
-    findings = sdk["eval_attack"](
-        attack_cls,
-        budget_s,
-        agent_factory=trial_agent_factory,
-        env_selection="gym",
-        options=sdk["AttackEvalOptions"](
-            run_config=sdk["AttackRunConfig"](
-                time_budget_s=budget_s,
-                max_steps=10**9,
-                max_tool_hops=4,
+    evaluation_error: dict[str, str] | None = None
+    try:
+        findings = sdk["eval_attack"](
+            attack_cls,
+            budget_s,
+            agent_factory=trial_agent_factory,
+            env_selection="gym",
+            options=sdk["AttackEvalOptions"](
+                run_config=sdk["AttackRunConfig"](
+                    time_budget_s=budget_s,
+                    max_steps=10**9,
+                    max_tool_hops=4,
+                ),
+                attack_config={"seed": seed, "evaluation": {"phase": phase}},
+                env_seed=seed,
+                guardrail_factory=RecordingGuardrail,
             ),
-            attack_config={"seed": seed, "evaluation": {"phase": phase}},
-            env_seed=seed,
-            guardrail_factory=RecordingGuardrail,
-        ),
-    )
+        )
+    except Exception as error:
+        # A malformed candidate may expose an SDK/runtime edge case. Keep the
+        # remaining matched-seed screen running and record only the exception
+        # class/message; tool payloads remain in the redacted debug projection.
+        findings = []
+        evaluation_error = {
+            "type": type(error).__name__,
+            "message": str(error),
+        }
     breaches = sum(
         bool(sdk["is_breach"](finding["trace"], finding["predicates"]))
         for finding in findings
@@ -188,6 +199,8 @@ def run_trial(
         failure_stage = "breach_achieved"
     elif objectives:
         failure_stage = "objective_without_breach"
+    elif evaluation_error:
+        failure_stage = "sdk_execution_error"
     elif blocked:
         failure_stage = "guardrail_blocked"
     elif tool_decisions:
@@ -210,6 +223,7 @@ def run_trial(
         evidence={
             "agent_events": agent_events,
             "guardrail_events": guardrail_events,
+            "evaluation_error": evaluation_error,
             "validated_findings": [
                 {
                     "seed": finding["seed"],

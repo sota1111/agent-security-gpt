@@ -133,6 +133,18 @@ See [`docs/sot-2216-tool-search-recovery.md`](docs/sot-2216-tool-search-recovery
 and the
 [`machine-readable recovery contract`](docs/results/sot-2216-tool-search-recovery-contract.json).
 
+## SOT-2217 adaptive tool-recovery screen
+
+Three SOT-2216-derived candidates were screened against the champion with the
+same official SDK, model, 30-second budget, and seeds `11,29,47`. Every
+candidate tied the champion at breach `0/3` and objective achievement `0/3`;
+therefore none advanced to independent confirm. Candidate modules were
+reverted, `attack.py` remained unchanged, and exact wording plus rejection
+evidence is preserved in
+[`docs/sot-2217-adaptive-tool-recovery-screen.md`](docs/sot-2217-adaptive-tool-recovery-screen.md)
+and the
+[`machine-readable screen result`](docs/results/sot-2217-adaptive-tool-recovery-screen.json).
+
 ## SOT-2144 final-champion submission
 
 The final champion is unchanged (SOT-2142/SOT-2143 promoted nothing), so `attack.py` is
