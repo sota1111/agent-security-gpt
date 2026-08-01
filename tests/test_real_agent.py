@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import importlib.util
 import sys
 from pathlib import Path
 
@@ -164,11 +165,10 @@ def test_contract_map_exposes_opaque_fixture_gap_without_secret_values() -> None
         "tool_identifiers_and_argument_identifiers_hashed": True,
     }
     serialized = json.dumps(payload, sort_keys=True)
+    sdk_spec = importlib.util.find_spec("aicomp_sdk")
+    assert sdk_spec is not None and sdk_spec.origin is not None
     fixture_credentials = json.loads(
-        (
-            root
-            / ".venv/lib/python3.12/site-packages/aicomp_sdk/fixtures/file_seed/credentials.json"
-        ).read_text()
+        (Path(sdk_spec.origin).parent / "fixtures/file_seed/credentials.json").read_text()
     )
     assert all(str(value) not in serialized for value in fixture_credentials.values())
 
