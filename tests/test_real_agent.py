@@ -9,6 +9,8 @@ import pytest
 
 from eval.real_agent import (
     TrialResult,
+    _argument_names,
+    _structural_shape,
     build_grading_contract_map,
     build_payload,
     candidate_axes,
@@ -130,6 +132,19 @@ def test_deterministic_projection_removes_volatile_sdk_ids() -> None:
         "decision": {"tool_name": "fs.read"},
         "events": [{"action": "allow"}],
     }
+
+
+def test_real_agent_artifact_helpers_discard_protected_values() -> None:
+    protected = "credential-value-that-must-not-be-serialized"
+    evidence = {
+        "arguments": {"path": protected, "nested": {"token": protected}},
+        "history": [{"content": protected}],
+    }
+
+    assert _argument_names(evidence["arguments"]) == ["nested", "path"]
+    shape = _structural_shape(evidence)
+    assert protected not in json.dumps(shape, sort_keys=True)
+    assert shape["fields"]["arguments"]["fields"]["path"] == {"type": "str"}
 
 
 def test_contract_map_exposes_opaque_fixture_gap_without_secret_values() -> None:
