@@ -167,6 +167,24 @@ is retained only for SOT-2249's disjoint-seed confirm, while `attack.py` remains
 unchanged. See the [screen report](docs/sot-2248-scenario-generalized-candidate-screen.md)
 and its [machine-readable result](docs/results/sot-2248-scenario-generalized-candidate-screen.json).
 
+## SOT-2269 post-submission boundary diagnosis
+
+The promoted `protocol-only-context` bytes, current `attack.py`, and submitted payload are identical.
+Across the preserved matched-screen seeds `11,29,47` and independent-confirm seeds `101,131,173`,
+all `6/6` trials reached SDK loading and an agent tool trajectory, while canonical predicate and breach
+reach were `4/6`. The first observed loss boundary is therefore predicate retention, not artifact
+packaging or SDK loading. This can explain a public score of `0.000` if hidden scenarios concentrate on
+the same predicate-miss mode; it does not claim hidden-grader reproduction.
+
+Rebuild the secret-free diagnosis from the checked-in SDK records:
+
+```bash
+python3 -m eval.transfer_gap
+```
+
+See the [diagnostic report](docs/sot-2269-post-submission-transfer-gap.md) and
+[machine-readable boundary result](docs/results/sot-2269-post-submission-transfer-gap.json).
+
 ## SOT-2144 final-champion submission
 
 The final champion is unchanged (SOT-2142/SOT-2143 promoted nothing), so `attack.py` is
