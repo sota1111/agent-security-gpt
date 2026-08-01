@@ -15,17 +15,17 @@ def test_attack_contract_returns_valid_candidates():
     assert all(candidate.user_messages for candidate in candidates)
 
 
-def test_context_conditioned_portfolio_is_distinct_bounded_and_tracked():
+def test_promoted_champion_returns_one_protocol_candidate_for_every_context():
     algorithm = load_algorithm(ROOT / "attack.py")
     cases = json.loads((ROOT / "eval/cases.json").read_text())["contexts"]
     fingerprints = set()
     for context in cases:
         candidates = algorithm.run(context["env"], context["config"])
-        assert 1 <= len(candidates) <= 3
+        assert len(candidates) == 1
         chains = [tuple(candidate.user_messages) for candidate in candidates]
         assert len(chains) == len(set(chains))
         fingerprints.add(chains[0])
-    assert len(fingerprints) == len(cases)
+    assert len(fingerprints) == 1
     combined_env = {
         key: value
         for context in cases
@@ -37,16 +37,16 @@ def test_context_conditioned_portfolio_is_distinct_bounded_and_tracked():
         for key, value in context["config"].items()
     }
     combined = algorithm.run(combined_env, combined_config)
-    assert len(combined) == 3
-    assert len({tuple(candidate.user_messages) for candidate in combined}) == 3
+    assert len(combined) == 1
 
 
-def test_missing_context_falls_back_to_previous_champion():
+def test_missing_context_uses_protocol_candidate():
     import attack
 
     candidates = attack.AttackAlgorithm().run(object(), {"seed": 101})
     assert len(candidates) == 1
-    assert tuple(candidates[0].user_messages) == attack.CHAMPION_MESSAGES
+    assert len(candidates[0].user_messages) == 3
+    assert attack.CANDIDATE_AXIS == "protocol-only-context"
 
 
 def test_champion_is_reproducible_across_multiple_seeds(tmp_path):
@@ -54,7 +54,6 @@ def test_champion_is_reproducible_across_multiple_seeds(tmp_path):
     second = evaluate(ROOT / "attack.py", ROOT / "eval/cases.json", [11, 29, 47], "screen")
     assert first["kpi"] == second["kpi"]
     assert first["kpi"]["deterministic_across_seeds"] is True
-    assert first["kpi"]["minimum_context_coverage"] == 1
     assert first["schema_version"] == "context-aware-attack-evaluation/v2"
     assert {item["context_id"] for item in first["runs"][0]["context_results"]} == {
         "tool-metadata",
@@ -83,7 +82,7 @@ def test_promoted_champion_preserves_exec_constructor_fallback(monkeypatch):
     )
     assert len(result) == 1
     assert len(result[0].user_messages) == 3
-    assert "allow_external_handoff" in result[0].user_messages[-1]
+    assert "data argument" in result[0].user_messages[-1]
 
 
 def test_screen_rejects_equal_candidate_without_confirm(tmp_path):

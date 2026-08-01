@@ -265,6 +265,13 @@ candidate overlap strictly decreases. The complete criteria are emitted into eve
 Run local checks with:
 
 ```bash
-python3 -m pytest
-python3 -m compileall -q attack.py eval tests
+scripts/verify_restart_gate.sh
 ```
+
+The restart gate deliberately uses the repository's `.venv/bin/python`. It
+verifies the installed official SDK version and public API contract, checks
+that the kernel payload is byte-for-byte identical to `attack.py`, executes the
+payload from an unrelated working directory with outbound socket connections
+disabled, compiles the source, and runs the full test suite. Evaluation is
+limited to the competition SDK's synthetic fixtures; real secrets,
+credentials, user data, and arbitrary external destinations are out of scope.

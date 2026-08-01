@@ -169,7 +169,7 @@ def test_contract_map_exposes_opaque_fixture_gap_without_secret_values() -> None
         item for item in payload["scenario_evidence"]
         if item["scenario"] == "public_sdk_opaque_contract"
     ]
-    assert {item["candidate_count"] for item in local} == {3}
+    assert {item["candidate_count"] for item in local} == {1}
     assert {item["candidate_count"] for item in sdk} == {1}
     assert len(payload["hypotheses"]) >= 2
     assert len(payload["next_screen_rules"]) == 3
