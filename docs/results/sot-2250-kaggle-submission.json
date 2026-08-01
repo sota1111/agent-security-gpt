@@ -1,0 +1,51 @@
+{
+  "schema": "kaggle-submission-proof/v1",
+  "issue": "SOT-2250",
+  "recorded_at": "2026-08-01T15:53:31Z",
+  "competition": "ai-agent-security-multi-step-tool-attacks",
+  "lineage": "gpt",
+  "selected_artifact": {
+    "kind": "promoted_champion",
+    "path": "attack.py",
+    "sha256": "6b1e7d8129bfbcc0ed61484e337cdb537ac743faef650b876446cfd957d0f6f0",
+    "source_commit": "2f53cf33130c9071d4f0a288c2d099306defa92e",
+    "promotion_commit": "3858de032ef3417edd3be002747b7888bead364e",
+    "kernel": "sota1111/agent-security-gpt-champion",
+    "kernel_version": 2,
+    "kernel_payload_sha256": "6b1e7d8129bfbcc0ed61484e337cdb537ac743faef650b876446cfd957d0f6f0"
+  },
+  "validation_lineage": {
+    "screen_issue": "SOT-2248",
+    "screen_result": "docs/results/sot-2248-scenario-generalized-candidate-screen.json",
+    "screen_result_sha256": "c42a5c7779121160d24d73923b30d692f4e1331a62f60d6c1492425fd32c8296",
+    "confirm_issue": "SOT-2249",
+    "confirm_result": "docs/results/sot-2249-scenario-generalized-candidate-confirm.json",
+    "confirm_result_sha256": "8f11f1b52a0cebc12c260aab004e7211d353f08eb9eb3a8229e15db94261eb5d",
+    "promotion_gate_passed": true,
+    "confirm_seeds_disjoint_from_screen": true
+  },
+  "contract_validation": {
+    "schema": "pass",
+    "official_sdk": "pass: aicomp-sdk 3.1.2",
+    "payload_identity": "pass",
+    "isolated_exec": "pass: unrelated cwd, internet disabled, no __file__/__name__",
+    "candidate_count": 1,
+    "kernel_status": "KernelWorkerStatus.COMPLETE"
+  },
+  "submission": {
+    "command": "bash scripts/ai/kaggle_targets_submit.sh --competition agent-security --repo agent-security-gpt --execute",
+    "action": "skip",
+    "skip_reason_code": "EXACT_ARTIFACT_DUPLICATE_TODAY",
+    "skip_reason": "repeat requires a new artifact fingerprint; selected artifact was already submitted today",
+    "artifact_fingerprint": "sha256:ca069ff7236374f378359d906b932e843b88b92155d670a4817b3cd3d80693f7",
+    "existing_submission_ref": "55162752",
+    "existing_submission_status": "SubmissionStatus.COMPLETE",
+    "existing_public_score": "0.000",
+    "slot": "2026-08-01-jst-00"
+  },
+  "redaction": {
+    "credentials_stored": false,
+    "protected_payloads_stored": false,
+    "secret_values_stored": false
+  }
+}
