@@ -169,6 +169,17 @@ coverage `1.0` vs real breach `0.0`), recorded as cycle-5 material. See
 [`docs/sot-2144-final-champion-submission.md`](docs/sot-2144-final-champion-submission.md)
 and [`docs/results/sot-2144-kaggle-proof.json`](docs/results/sot-2144-kaggle-proof.json).
 
+## SOT-2219 adaptive-recovery submission proof
+
+SOT-2218 promoted no adaptive-recovery candidate, so the unique submission artifact remains
+`attack.py` at SHA-256 `6d480375c3b75bc2b650be6a77a3ca9b97308bfb424f2cdd68c2b9c624bdb039`.
+The local kernel payload and the live Kaggle kernel source are byte-identical to that champion, and
+the full arbitrary-CWD, internet-disabled exec contract passes. The latest existing submission,
+ref `55132776`, is complete with public score `0.000`; a fresh push/submission was skipped because it
+would duplicate the same live kernel and artifact. See the
+[submission record](docs/sot-2219-adaptive-recovery-kaggle-submission.md) and
+[machine-readable proof](docs/results/sot-2219-kaggle-proof.json).
+
 ## SOT-2079 promotion
 
 `docs/results/sot-2079-context-portfolio-gate.json` compares the previous

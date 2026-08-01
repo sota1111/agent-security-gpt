@@ -1,0 +1,56 @@
+{
+  "schema_version": "kaggle-champion-proof/v3",
+  "issue": "SOT-2219",
+  "parent_issue": "SOT-2215",
+  "observed_at_utc": "2026-08-01T00:30:00Z",
+  "champion": {
+    "source": "attack.py",
+    "promotion_issue": "SOT-2079",
+    "promotion_commit": "925fb85b19d7d6ea5d150131ac349da031a08aaa",
+    "sha256": "6d480375c3b75bc2b650be6a77a3ca9b97308bfb424f2cdd68c2b9c624bdb039",
+    "screen": "docs/results/sot-2217-adaptive-tool-recovery-screen.json",
+    "screen_sha256": "18253028c396487be6248e95a1703635ad7998b01e6fec763b3ac4865e89dc6d",
+    "confirm_decision": "docs/results/sot-2218-adaptive-recovery-confirm.json",
+    "promotion": "retained",
+    "latest_submission_artifact_unique": true
+  },
+  "payload_identity": {
+    "status": "pass",
+    "kernel_source": "kaggle/kernel/submit.py",
+    "kernel_source_sha256": "c1b4bdfc060a052e7b85886c492612738591b52b44377b6062ab2ebe28a95af1",
+    "embedded_payload_equals_attack_py": true,
+    "embedded_payload_sha256": "6d480375c3b75bc2b650be6a77a3ca9b97308bfb424f2cdd68c2b9c624bdb039",
+    "declared_sha256_matches": true,
+    "live_kernel_source_byte_identical": true
+  },
+  "exec_compatibility": {
+    "status": "pass",
+    "sdk_version": "3.1.2",
+    "conditions": [
+      "exec",
+      "no___file__",
+      "no___name__",
+      "arbitrary_cwd",
+      "internet_disabled"
+    ],
+    "candidate_count": 3
+  },
+  "kaggle": {
+    "competition": "ai-agent-security-multi-step-tool-attacks",
+    "kernel": "sota1111/agent-security-gpt-champion",
+    "kernel_status": "COMPLETE",
+    "submission_ref": "55132776",
+    "submission_description": "auto-improve submit: agent-security-gpt champion [slot:2026-07-31-jst-18]",
+    "submission_status": "COMPLETE",
+    "public_score": 0.0,
+    "private_score": null,
+    "team": "sota1111",
+    "official_rank": 2614,
+    "team_count": 2635
+  },
+  "new_submission": {
+    "performed": false,
+    "decision": "skip_exact_duplicate",
+    "reason": "The authenticated live kernel source is byte-identical to the checked-in kernel carrying the retained champion, and the latest GPT-lineage submission for that champion is already complete. A new push/submission would consume a slot without changing the artifact."
+  }
+}
