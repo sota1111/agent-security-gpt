@@ -1,17 +1,20 @@
 from __future__ import annotations
 
 import json
+import sys
 from pathlib import Path
 
 import pytest
 
 from eval.real_agent import (
     TrialResult,
+    build_grading_contract_map,
     build_payload,
     candidate_axes,
     deterministic_projection,
     main,
     normalize_diagnostic,
+    sdk_symbols,
     summarize,
 )
 
@@ -126,6 +129,57 @@ def test_deterministic_projection_removes_volatile_sdk_ids() -> None:
         "decision": {"tool_name": "fs.read"},
         "events": [{"action": "allow"}],
     }
+
+
+def test_contract_map_exposes_opaque_fixture_gap_without_secret_values() -> None:
+    # The deterministic attack harness installs a minimal fake aicomp_sdk in
+    # sys.modules. Restore the installed public SDK before contract inspection.
+    for name in list(sys.modules):
+        if name == "aicomp_sdk" or name.startswith("aicomp_sdk."):
+            sys.modules.pop(name)
+    sdk_symbols.cache_clear()
+    root = Path(__file__).resolve().parents[1]
+    payload = build_grading_contract_map(
+        champion=root / "attack.py",
+        kernel=root / "kaggle/kernel/submit.py",
+        seeds=[11, 29, 101],
+    )
+
+    local = [
+        item for item in payload["scenario_evidence"]
+        if item["scenario"] == "local_mapping_fixture"
+    ]
+    sdk = [
+        item for item in payload["scenario_evidence"]
+        if item["scenario"] == "public_sdk_opaque_contract"
+    ]
+    assert {item["candidate_count"] for item in local} == {3}
+    assert {item["candidate_count"] for item in sdk} == {1}
+    assert len(payload["hypotheses"]) >= 2
+    assert len(payload["next_screen_rules"]) == 3
+    assert payload["redaction"] == {
+        "fixture_payloads_read": False,
+        "credentials_read": False,
+        "target_sink_and_argument_identifiers_hashed": True,
+        "tool_identifiers_and_argument_identifiers_hashed": True,
+    }
+    serialized = json.dumps(payload, sort_keys=True)
+    fixture_credentials = json.loads(
+        (
+            root
+            / ".venv/lib/python3.12/site-packages/aicomp_sdk/fixtures/file_seed/credentials.json"
+        ).read_text()
+    )
+    assert all(str(value) not in serialized for value in fixture_credentials.values())
+
+
+def test_contract_map_requires_multiple_unique_seeds(tmp_path: Path) -> None:
+    with pytest.raises(ValueError, match="at least two unique seeds"):
+        build_grading_contract_map(
+            champion=tmp_path / "attack.py",
+            kernel=tmp_path / "submit.py",
+            seeds=[11, 11],
+        )
 
 
 def test_cli_rejects_overlapping_phase_seeds(tmp_path: Path) -> None:
