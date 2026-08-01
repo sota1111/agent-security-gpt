@@ -1,0 +1,61 @@
+{
+  "schema": "kaggle-submission-handoff/v1",
+  "issue": "SOT-2271",
+  "parent_issue": "SOT-2266",
+  "selected_artifact": {
+    "kind": "retained_champion",
+    "path": "attack.py",
+    "sha256": "6b1e7d8129bfbcc0ed61484e337cdb537ac743faef650b876446cfd957d0f6f0",
+    "source_commit": "2f53cf33130c9071d4f0a288c2d099306defa92e",
+    "promotion_commit": "3858de032ef3417edd3be002747b7888bead364e",
+    "kernel_payload_byte_identical": true,
+    "kernel_declared_sha_matches": true
+  },
+  "validation_lineage": {
+    "screen_issue": "SOT-2248",
+    "screen_result": "docs/results/sot-2248-scenario-generalized-candidate-screen.json",
+    "screen_result_sha256": "c42a5c7779121160d24d73923b30d692f4e1331a62f60d6c1492425fd32c8296",
+    "confirm_issue": "SOT-2249",
+    "confirm_result": "docs/results/sot-2249-scenario-generalized-candidate-confirm.json",
+    "confirm_result_sha256": "8f11f1b52a0cebc12c260aab004e7211d353f08eb9eb3a8229e15db94261eb5d",
+    "confirm_seeds_disjoint_from_screen": true,
+    "promotion_gate_passed": true,
+    "diagnostic_issue": "SOT-2269",
+    "diagnostic_result": "docs/results/sot-2269-post-submission-transfer-gap.json",
+    "diagnostic_result_sha256": "ddd01bba1fa5c1e91fd4548e10b7ca3b17848f22f96dbc87f5a1a5225c1f8be5",
+    "eligibility_issue": "SOT-2270",
+    "eligible_candidate_count": 0,
+    "candidate_sha": null,
+    "candidate_changed": false,
+    "champion_changed": false,
+    "screen_confirm": "not_applicable_no_implemented_candidate"
+  },
+  "contract_validation": {
+    "restart_gate": "pass",
+    "official_sdk": "pass: aicomp-sdk 3.1.2",
+    "payload_identity": "pass",
+    "isolated_exec": "pass: arbitrary cwd, internet disabled, no __file__/__name__",
+    "candidate_count": 1
+  },
+  "parent_submission": {
+    "owner": "SOT-2266",
+    "working_directory": "/workspaces/ai-dev-control-plane",
+    "command": "bash scripts/ai/kaggle_targets_submit.sh --competition agent-security --repo agent-security-gpt --execute",
+    "registry_repo": "agent-security-gpt",
+    "kernel": "sota1111/agent-security-gpt-champion",
+    "kernel_version": 2,
+    "output": "submission.csv",
+    "artifact_identity": "kaggle-notebook:sota1111/agent-security-gpt-champion@2:submission.csv",
+    "artifact_fingerprint": "sha256:ca069ff7236374f378359d906b932e843b88b92155d670a4817b3cd3d80693f7",
+    "fingerprint_gate": "prevalidated_identity_matches_SOT-2250; wrapper_must_refresh_live_history",
+    "child_executed_submission": false,
+    "submission_ref": null,
+    "submission_status": null,
+    "public_score": null
+  },
+  "redaction": {
+    "credentials_stored": false,
+    "protected_payloads_stored": false,
+    "secret_values_stored": false
+  }
+}
