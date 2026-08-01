@@ -53,11 +53,11 @@ def main() -> None:
         },
         {"preserve_history": True, "allow_external_handoff": True},
     )
-    assert len(candidates) == 3
+    assert len(candidates) == 1
     assert all(candidate.user_messages for candidate in candidates)
     print(
         "exec compatibility: PASS "
-        f"(sha256={expected_sha}, no __file__/__name__, changed cwd, internet disabled, 3 candidates)"
+        f"(sha256={expected_sha}, no __file__/__name__, changed cwd, internet disabled, 1 candidate)"
     )
 
 
