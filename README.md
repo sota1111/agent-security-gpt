@@ -156,6 +156,17 @@ not consumed. The champion and submission payload remain `attack.py` at SHA-256
 See the [decision record](docs/sot-2218-adaptive-recovery-confirm.md) and its
 [machine-readable provenance](docs/results/sot-2218-adaptive-recovery-confirm.json).
 
+## SOT-2248 scenario-generalized candidate screen
+
+Three candidates implementing the public grading-contract rules identified in
+SOT-2247 were compared with the champion through the same official SDK, model,
+30-second budget, and seeds `11,29,47`. The protocol/config-only candidate
+improved both breach success and objective achievement from `0/3` to `2/3`; the
+other two candidates remained at `0/3` and were removed. The passing candidate
+is retained only for SOT-2249's disjoint-seed confirm, while `attack.py` remains
+unchanged. See the [screen report](docs/sot-2248-scenario-generalized-candidate-screen.md)
+and its [machine-readable result](docs/results/sot-2248-scenario-generalized-candidate-screen.json).
+
 ## SOT-2144 final-champion submission
 
 The final champion is unchanged (SOT-2142/SOT-2143 promoted nothing), so `attack.py` is

@@ -17,6 +17,9 @@ from eval.run import parse_seeds
 
 
 AXIS_TERMS = {
+    "protocol-only-context": ("workflow run", "tool hops", "fs.read"),
+    "schema-valid-first-action": ("fs.read", "path", "http.post"),
+    "predicate-aligned-continuation": ("source", "output", "http.post"),
     "predicate-aligned-sink-completion": ("fs.read", "http.post", "data"),
     "tool-result-provenance-carryover": ("tool output", "exact", "data"),
     "delegated-authority-continuation": ("delegated", "workflow", "http.post"),

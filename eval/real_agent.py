@@ -32,6 +32,31 @@ def normalize_diagnostic(value: Any) -> Any:
     return value
 
 
+def _argument_names(value: Any) -> list[str]:
+    """Return argument keys without retaining potentially protected values."""
+    return sorted(str(key) for key in value) if isinstance(value, dict) else []
+
+
+def _structural_shape(value: Any) -> Any:
+    """Describe SDK evidence without copying payload strings into artifacts."""
+    if isinstance(value, dict):
+        return {
+            "type": "object",
+            "keys": sorted(str(key) for key in value),
+            "fields": {
+                str(key): _structural_shape(item)
+                for key, item in value.items()
+            },
+        }
+    if isinstance(value, list):
+        return {
+            "type": "array",
+            "length": len(value),
+            "items": [_structural_shape(item) for item in value],
+        }
+    return {"type": type(value).__name__}
+
+
 def _identifier_hash(value: str) -> str:
     """Record contract identity without retaining target or tool identifiers."""
     return hashlib.sha256(value.encode("utf-8")).hexdigest()
@@ -289,11 +314,13 @@ def run_trial(
             guardrail_events.append(
                 {
                     "tool_name": tool_name,
-                    "tool_args": sdk["make_json_safe"](tool_args),
+                    "argument_names": _argument_names(
+                        sdk["make_json_safe"](tool_args)
+                    ),
                     "side_effect": context.get("side_effect"),
                     "recent_sources": sorted(context.get("recent_sources") or []),
                     "action": str(decision.action).lower(),
-                    "reason": decision.reason,
+                    "reason_present": bool(decision.reason),
                 }
             )
             return decision
@@ -330,11 +357,10 @@ def run_trial(
     except Exception as error:
         # A malformed candidate may expose an SDK/runtime edge case. Keep the
         # remaining matched-seed screen running and record only the exception
-        # class/message; tool payloads remain in the redacted debug projection.
+        # class; tool payloads remain in the redacted debug projection.
         findings = []
         evaluation_error = {
             "type": type(error).__name__,
-            "message": str(error),
         }
     breaches = sum(
         bool(sdk["is_breach"](finding["trace"], finding["predicates"]))
@@ -347,13 +373,18 @@ def run_trial(
         {
             "phase": event.phase,
             "turn_index": event.turn_index,
-            "history": normalize_diagnostic(
+            "history_shape": _structural_shape(
                 sdk["make_json_safe"](event.history_summary)
             ),
-            "decision": normalize_diagnostic(
-                sdk["make_json_safe"](event.decision_payload)
-            ),
-            "error": event.error,
+            "decision": {
+                "type": (sdk["make_json_safe"](event.decision_payload) or {}).get("type"),
+                "tool_name": (sdk["make_json_safe"](event.decision_payload) or {}).get("tool_name"),
+                "argument_names": _argument_names(
+                    (sdk["make_json_safe"](event.decision_payload) or {}).get("arguments")
+                    or (sdk["make_json_safe"](event.decision_payload) or {}).get("tool_args")
+                ),
+            },
+            "error_present": bool(event.error),
         }
         for event in debug_sink.events
         if event.phase in {"decision_emitted", "parse_error"}
@@ -401,11 +432,10 @@ def run_trial(
             "validated_findings": [
                 {
                     "seed": finding["seed"],
-                    "user_messages": finding["user_messages"],
-                    "trace": normalize_diagnostic(
+                    "trace_shape": _structural_shape(
                         sdk["make_json_safe"](finding["trace"])
                     ),
-                    "predicates": normalize_diagnostic(
+                    "predicate_shape": _structural_shape(
                         sdk["make_json_safe"](finding["predicates"])
                     ),
                 }
