@@ -1,0 +1,22 @@
+{
+  "candidate": null,
+  "champion_sha256": "6b1e7d8129bfbcc0ed61484e337cdb537ac743faef650b876446cfd957d0f6f0",
+  "children": [
+    {
+      "issue": "SOT-2329",
+      "path": "docs/results/sot-2329-trial-family-provenance.json",
+      "schema": "sdk-native-trial-family-provenance/v1",
+      "sha256": "bec47051b4f806c36790a5b4a23cdeb73851411d70545b1bc85c0a4289b9ef5c",
+      "state": "Done"
+    },
+    {
+      "issue": "SOT-2330",
+      "path": "docs/results/sot-2330-provenance-backed-stratified-oracle.json",
+      "schema": "provenance-backed-stratified-oracle-evaluation/v1",
+      "sha256": "0cac4b6fbbc3799ba740d1bc0856e3c3d34a5dfa5a34e8b6da1bb409656c7c0d",
+      "state": "Done"
+    }
+  ],
+  "current_submission_fingerprint_sha256": "ca069ff7236374f378359d906b932e843b88b92155d670a4817b3cd3d80693f7",
+  "previous_submission_fingerprint_sha256": "ca069ff7236374f378359d906b932e843b88b92155d670a4817b3cd3d80693f7"
+}
