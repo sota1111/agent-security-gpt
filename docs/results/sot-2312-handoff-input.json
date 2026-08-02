@@ -1,0 +1,19 @@
+{
+  "children": [
+    {
+      "issue": "SOT-2310",
+      "state": "Done",
+      "path": "docs/results/sot-2310-transfer-holdout-provenance.json",
+      "schema": "transfer-holdout-provenance/v1",
+      "sha256": "345d337a0895ea1588869ddbe6366aa1392fd517ebc9a05aa0d571c336284415"
+    },
+    {
+      "issue": "SOT-2311",
+      "state": "Done",
+      "path": "docs/results/sot-2311-promotion-decision.json",
+      "schema": "transfer-aware-promotion-decision/v1",
+      "sha256": "9c37b4f85a70ade958f92119d8e7727f2e3b0da3751d48c806b65f1219432d87"
+    }
+  ],
+  "previous_submission_fingerprint_sha256": "ca069ff7236374f378359d906b932e843b88b92155d670a4817b3cd3d80693f7"
+}
