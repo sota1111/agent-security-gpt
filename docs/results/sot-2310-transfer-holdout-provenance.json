@@ -1,0 +1,43 @@
+{
+  "boundaries": {
+    "fingerprint": {
+      "all_match": true,
+      "sha256": "ca069ff7236374f378359d906b932e843b88b92155d670a4817b3cd3d80693f7",
+      "valid": true
+    },
+    "lineage": {
+      "artifact_sha256": "6b1e7d8129bfbcc0ed61484e337cdb537ac743faef650b876446cfd957d0f6f0",
+      "cross_references_match": true,
+      "input_hashes_match": true,
+      "valid": true
+    },
+    "local_proxy": {
+      "conditions_sha256": "9d7a8c27912569da1caa1ecc414ea3f7ed1c0b2d44f7d6472a92749d7cd124d7",
+      "rate": 0.6666666666666666,
+      "successes": 4,
+      "trials": 6,
+      "valid": true
+    },
+    "public_kpi": {
+      "passed": false,
+      "score_milli": 0,
+      "valid": true
+    }
+  },
+  "fail_closed": {
+    "reason_count": 0,
+    "reasons_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "valid": true
+  },
+  "input_artifact_count": 6,
+  "input_contract_sha256": "ee2c649493c738c0dcfc88671342eeb100f1bfac71cb433a975a252420f57598",
+  "issue": "SOT-2310",
+  "safety": {
+    "credentials_read": false,
+    "fixture_values_read": false,
+    "kaggle_submission_executed": false,
+    "network_used": false,
+    "protected_payloads_read": false
+  },
+  "schema": "transfer-holdout-provenance/v1"
+}
