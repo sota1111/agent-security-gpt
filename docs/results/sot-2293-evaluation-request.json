@@ -1,0 +1,7 @@
+{
+  "axes": [
+    {"id": "predicate-reach-across-scenarios", "implemented": false},
+    {"id": "tool-result-to-scored-sink-continuation", "implemented": false},
+    {"id": "seed-robust-action-path", "implemented": false}
+  ]
+}

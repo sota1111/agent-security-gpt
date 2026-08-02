@@ -1,0 +1,47 @@
+{
+  "anchor": {
+    "issue": "SOT-2292",
+    "path": "docs/results/sot-2292-oracle-drift-anchor.json",
+    "schema": "oracle-drift-anchor/v1",
+    "sha256": "19797c087f749594b3bdc3db7fa8b032b5177626dfdbf7aa12e2ca8b0c53912b"
+  },
+  "candidate_code_retained": false,
+  "eligible_candidate_count": 0,
+  "excluded_axes": [
+    {
+      "id": "predicate-reach-across-scenarios",
+      "reason": "rejected_without_new_evidence"
+    },
+    {
+      "id": "tool-result-to-scored-sink-continuation",
+      "reason": "rejected_without_new_evidence"
+    },
+    {
+      "id": "seed-robust-action-path",
+      "reason": "rejected_without_new_evidence"
+    }
+  ],
+  "issue": "SOT-2293",
+  "kaggle_submission_executed": false,
+  "local_proxy": {
+    "hidden_grader_equivalence_claimed": false,
+    "local_breach_rate": 0.6666666666666666,
+    "local_breach_successes": 4,
+    "local_success_observed": true,
+    "local_trials": 6,
+    "oracle_drift_evidence": true,
+    "public_score": "0.000",
+    "public_zero_observed": true
+  },
+  "promotion": false,
+  "public_kpi": {
+    "passed": false,
+    "score": "0.000"
+  },
+  "reason": "no_eligible_fixed_candidate",
+  "required_actions": [
+    "revert_candidate_code",
+    "record_result_in_docs"
+  ],
+  "schema": "oracle-drift-promotion-decision/v1"
+}
