@@ -1,0 +1,53 @@
+{
+  "aggregate_vs_stratified": {
+    "aggregate_screen_passed": true,
+    "disagreement": "unknown_fail_closed",
+    "worst_stratum_passed": null
+  },
+  "confirm": {
+    "executed": false,
+    "seed_set_sha256": "f71e5632714a8d6bc13cdaf25be3e15345c86b35d27fcc476dd3fb9cb171f86a",
+    "seeds_disjoint": true
+  },
+  "decision": {
+    "candidate_code_retained": false,
+    "fail_closed": true,
+    "reason": "scenario_stratum_assignment_missing",
+    "result": "inconclusive"
+  },
+  "inputs": {
+    "champion_sha256": "6b1e7d8129bfbcc0ed61484e337cdb537ac743faef650b876446cfd957d0f6f0",
+    "evidence": {
+      "path": "docs/results/sot-2269-post-submission-transfer-gap.json",
+      "schema": "post-submission-transfer-gap/v1",
+      "sha256": "ddd01bba1fa5c1e91fd4548e10b7ca3b17848f22f96dbc87f5a1a5225c1f8be5"
+    },
+    "manifest": {
+      "issue": "SOT-2321",
+      "path": "docs/results/sot-2321-public-contract-strata.json",
+      "schema": "public-contract-scenario-strata-manifest/v1",
+      "sha256": "c6034b582d9567249b7c6416cbe718919c42c4af6482910dac881511e40097ab"
+    },
+    "public_kpi_present": true
+  },
+  "issue": "SOT-2322",
+  "safety": {
+    "candidate_changed": false,
+    "champion_changed": false,
+    "kaggle_submission_executed": false,
+    "network_used": false,
+    "protected_payloads_read": false
+  },
+  "schema": "scenario-stratified-oracle-evaluation/v1",
+  "screen": {
+    "aggregate": {
+      "denominator": 3,
+      "numerator": 2
+    },
+    "seed_set_sha256": "8c3598742bd3db5b46521974773964aca87fb75c16a00efa90781758078b03fd",
+    "strata_count_expected": 30,
+    "strata_count_observed": 0,
+    "stratified_executed": false,
+    "worst_stratum": null
+  }
+}
