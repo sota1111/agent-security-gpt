@@ -1,0 +1,19 @@
+{
+  "children": [
+    {
+      "issue": "SOT-2321",
+      "path": "docs/results/sot-2321-public-contract-strata.json",
+      "schema": "public-contract-scenario-strata-manifest/v1",
+      "sha256": "c6034b582d9567249b7c6416cbe718919c42c4af6482910dac881511e40097ab",
+      "state": "Done"
+    },
+    {
+      "issue": "SOT-2322",
+      "path": "docs/results/sot-2322-scenario-stratified-oracle.json",
+      "schema": "scenario-stratified-oracle-evaluation/v1",
+      "sha256": "81230d3a6f0af7c13fd0da870499f0a8e595f731819a137cd1ab3306ed92820b",
+      "state": "Done"
+    }
+  ],
+  "previous_submission_fingerprint_sha256": "ca069ff7236374f378359d906b932e843b88b92155d670a4817b3cd3d80693f7"
+}

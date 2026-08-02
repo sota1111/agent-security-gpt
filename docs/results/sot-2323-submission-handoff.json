@@ -1,0 +1,51 @@
+{
+  "artifact_identity": {
+    "candidate_sha256": null,
+    "champion_sha256": "6b1e7d8129bfbcc0ed61484e337cdb537ac743faef650b876446cfd957d0f6f0",
+    "current_fingerprint_sha256": "ca069ff7236374f378359d906b932e843b88b92155d670a4817b3cd3d80693f7",
+    "fingerprint_changed": false,
+    "previous_submission_fingerprint_sha256": "ca069ff7236374f378359d906b932e843b88b92155d670a4817b3cd3d80693f7"
+  },
+  "child_results": [
+    {
+      "issue": "SOT-2321",
+      "path": "docs/results/sot-2321-public-contract-strata.json",
+      "schema": "public-contract-scenario-strata-manifest/v1",
+      "sha256": "c6034b582d9567249b7c6416cbe718919c42c4af6482910dac881511e40097ab",
+      "state": "Done"
+    },
+    {
+      "issue": "SOT-2322",
+      "path": "docs/results/sot-2322-scenario-stratified-oracle.json",
+      "schema": "scenario-stratified-oracle-evaluation/v1",
+      "sha256": "81230d3a6f0af7c13fd0da870499f0a8e595f731819a137cd1ab3306ed92820b",
+      "state": "Done"
+    }
+  ],
+  "cycle": 6,
+  "decision": {
+    "fail_closed": true,
+    "promotion": false,
+    "reason": "scenario_stratum_assignment_missing",
+    "result": "inconclusive"
+  },
+  "evaluation_contract": {
+    "aggregate_vs_stratified": "unknown_fail_closed",
+    "confirm_executed": false,
+    "exec_compatibility": "not_applicable_no_promotion",
+    "screen_stratified": false,
+    "seeds_disjoint": true
+  },
+  "ineligibility_reasons": [
+    "oracle_inconclusive",
+    "artifact_fingerprint_unchanged_from_previous_submission"
+  ],
+  "issue": "SOT-2323",
+  "kaggle_submission_executed": false,
+  "new_artifact": false,
+  "parent_issue": "SOT-2317",
+  "schema": "stratified-oracle-submission-handoff/v1",
+  "submission_eligible": false,
+  "submission_owner": "SOT-2317",
+  "wrapper_execution_allowed_for_this_issue": false
+}
