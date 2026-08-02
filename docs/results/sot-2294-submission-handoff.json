@@ -1,0 +1,47 @@
+{
+  "artifact_identity": {
+    "candidate_sha256": null,
+    "champion_sha256": "6b1e7d8129bfbcc0ed61484e337cdb537ac743faef650b876446cfd957d0f6f0",
+    "current_fingerprint": "sha256:ca069ff7236374f378359d906b932e843b88b92155d670a4817b3cd3d80693f7",
+    "fingerprint_changed": false,
+    "previous_submission_fingerprint": "sha256:ca069ff7236374f378359d906b932e843b88b92155d670a4817b3cd3d80693f7"
+  },
+  "child_results": [
+    {
+      "issue": "SOT-2292",
+      "path": "docs/results/sot-2292-oracle-drift-anchor.json",
+      "schema": "oracle-drift-anchor/v1",
+      "sha256": "19797c087f749594b3bdc3db7fa8b032b5177626dfdbf7aa12e2ca8b0c53912b",
+      "state": "Done"
+    },
+    {
+      "issue": "SOT-2293",
+      "path": "docs/results/sot-2293-promotion-decision.json",
+      "schema": "oracle-drift-promotion-decision/v1",
+      "sha256": "44530e3a04a588a0b442c97d4cc2a5a4be961ed075be20f8b17a760fbb6ab828",
+      "state": "Done"
+    }
+  ],
+  "cycle": 4,
+  "evaluation_contract": {
+    "evaluation_conditions_sha256": "9d7a8c27912569da1caa1ecc414ea3f7ed1c0b2d44f7d6472a92749d7cd124d7",
+    "exec_compatibility": "not_applicable_no_promotion",
+    "nonpromotion_actions": [
+      "revert_candidate_code",
+      "record_result_in_docs"
+    ],
+    "screen_confirm": "not_applicable_no_eligible_candidate"
+  },
+  "ineligibility_reasons": [
+    "no_eligible_fixed_candidate",
+    "candidate_not_promoted",
+    "artifact_fingerprint_unchanged_from_previous_submission"
+  ],
+  "issue": "SOT-2294",
+  "kaggle_submission_executed": false,
+  "parent_issue": "SOT-2291",
+  "promotion": false,
+  "schema": "cycle-submission-eligibility-handoff/v1",
+  "submission_eligible": false,
+  "submission_owner": "SOT-2291"
+}

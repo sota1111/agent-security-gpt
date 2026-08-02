@@ -1,0 +1,24 @@
+{
+  "children": [
+    {
+      "issue": "SOT-2292",
+      "state": "Done",
+      "path": "docs/results/sot-2292-oracle-drift-anchor.json",
+      "schema": "oracle-drift-anchor/v1",
+      "sha256": "19797c087f749594b3bdc3db7fa8b032b5177626dfdbf7aa12e2ca8b0c53912b"
+    },
+    {
+      "issue": "SOT-2293",
+      "state": "Done",
+      "path": "docs/results/sot-2293-promotion-decision.json",
+      "schema": "oracle-drift-promotion-decision/v1",
+      "sha256": "44530e3a04a588a0b442c97d4cc2a5a4be961ed075be20f8b17a760fbb6ab828"
+    }
+  ],
+  "previous_submission": {
+    "issue": "SOT-2250",
+    "path": "docs/results/sot-2250-kaggle-submission.json",
+    "schema": "kaggle-submission-proof/v1",
+    "sha256": "c902e9dc20fb5047ce096fbb8ed76d12916a84bbe42624bc6bb3caa397cd8acd"
+  }
+}
