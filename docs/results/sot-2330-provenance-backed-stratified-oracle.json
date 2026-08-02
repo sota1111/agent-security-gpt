@@ -1,0 +1,66 @@
+{
+  "aggregate_vs_stratified": {
+    "aggregate_screen_passed": true,
+    "disagreement": "unknown_fail_closed",
+    "worst_stratum_passed": null
+  },
+  "confirm": {
+    "executed": false,
+    "fixture_sha256": "b3aaa354476dc9127e69231d37a3b57422ceb8b0306b1f2bdccdb850fae8e28b",
+    "prerequisites_passed": false,
+    "screen_confirm_disjoint": true
+  },
+  "decision": {
+    "exec_entrypoint_compatible": true,
+    "fail_closed": true,
+    "prototype_reverted": true,
+    "reason": "family_outcomes_absent_from_pinned_input",
+    "result": "inconclusive"
+  },
+  "inputs": {
+    "aggregate_evidence": {
+      "issue": "SOT-2269",
+      "path": "docs/results/sot-2269-post-submission-transfer-gap.json",
+      "schema": "post-submission-transfer-gap/v1",
+      "sha256": "ddd01bba1fa5c1e91fd4548e10b7ca3b17848f22f96dbc87f5a1a5225c1f8be5"
+    },
+    "trial_family_provenance": {
+      "issue": "SOT-2329",
+      "path": "docs/results/sot-2329-trial-family-provenance.json",
+      "schema": "sdk-native-trial-family-provenance/v1",
+      "sha256": "bec47051b4f806c36790a5b4a23cdeb73851411d70545b1bc85c0a4289b9ef5c",
+      "terminal_result": "promoted"
+    }
+  },
+  "issue": "SOT-2330",
+  "safety": {
+    "aggregate_hash_boolean_only": true,
+    "candidate_changed": false,
+    "credentials_read": false,
+    "hidden_grader_equivalence_claimed": false,
+    "kaggle_submission_executed": false,
+    "network_used": false,
+    "raw_prompts_stored": false,
+    "third_party_data_stored": false
+  },
+  "schema": "provenance-backed-stratified-oracle-evaluation/v1",
+  "screen": {
+    "aggregate": {
+      "denominator": 3,
+      "numerator": 2
+    },
+    "family_coverage": {
+      "complete": true,
+      "expected": 30,
+      "observed": 30
+    },
+    "fixture_sha256": "a56b4658ffa70f6fb1aa8d9b6d1ec83c782fe0cddfe2f446a9ccf9553011b8c2",
+    "outcome_coverage": {
+      "complete": false,
+      "expected": 30,
+      "observed": 0
+    },
+    "passed": false,
+    "worst_stratum": null
+  }
+}
