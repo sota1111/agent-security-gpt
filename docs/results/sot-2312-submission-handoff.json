@@ -1,0 +1,47 @@
+{
+  "artifact_identity": {
+    "candidate_sha256": null,
+    "champion_sha256": "6b1e7d8129bfbcc0ed61484e337cdb537ac743faef650b876446cfd957d0f6f0",
+    "current_fingerprint_sha256": "ca069ff7236374f378359d906b932e843b88b92155d670a4817b3cd3d80693f7",
+    "fingerprint_changed": false,
+    "previous_submission_fingerprint_sha256": "ca069ff7236374f378359d906b932e843b88b92155d670a4817b3cd3d80693f7"
+  },
+  "child_results": [
+    {
+      "issue": "SOT-2310",
+      "path": "docs/results/sot-2310-transfer-holdout-provenance.json",
+      "schema": "transfer-holdout-provenance/v1",
+      "sha256": "345d337a0895ea1588869ddbe6366aa1392fd517ebc9a05aa0d571c336284415",
+      "state": "Done"
+    },
+    {
+      "issue": "SOT-2311",
+      "path": "docs/results/sot-2311-promotion-decision.json",
+      "schema": "transfer-aware-promotion-decision/v1",
+      "sha256": "9c37b4f85a70ade958f92119d8e7727f2e3b0da3751d48c806b65f1219432d87",
+      "state": "Done"
+    }
+  ],
+  "cycle": 5,
+  "evaluation_contract": {
+    "conditions_sha256": "9d7a8c27912569da1caa1ecc414ea3f7ed1c0b2d44f7d6472a92749d7cd124d7",
+    "exec_compatibility": "not_applicable_no_promotion",
+    "screen_confirm": "not_applicable_no_promotion",
+    "transfer_gate": "not_applicable_no_promotion"
+  },
+  "ineligibility_reasons": [
+    "no_eligible_fixed_candidate",
+    "candidate_not_promoted",
+    "artifact_fingerprint_unchanged_from_previous_submission"
+  ],
+  "issue": "SOT-2312",
+  "kaggle_submission_executed": false,
+  "new_artifact": false,
+  "no_promotion_no_new_artifact": true,
+  "parent_issue": "SOT-2309",
+  "promotion": false,
+  "schema": "transfer-aware-submission-handoff/v1",
+  "submission_eligible": false,
+  "submission_owner": "SOT-2309",
+  "wrapper_execution_allowed_for_this_issue": false
+}
