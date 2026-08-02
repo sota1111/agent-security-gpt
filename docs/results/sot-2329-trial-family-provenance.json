@@ -1,0 +1,55 @@
+{
+  "decision": {
+    "artifact_retained": true,
+    "confirm_executed": true,
+    "confirm_passed": true,
+    "exec_entrypoint_compatible": true,
+    "prototype_reverted": false,
+    "result": "promoted",
+    "screen_passed": true
+  },
+  "input_manifest": {
+    "issue": "SOT-2321",
+    "path": "docs/results/sot-2321-public-contract-strata.json",
+    "schema": "public-contract-scenario-strata-manifest/v1",
+    "sha256": "c6034b582d9567249b7c6416cbe718919c42c4af6482910dac881511e40097ab"
+  },
+  "issue": "SOT-2329",
+  "parent_issue": "SOT-2325",
+  "provenance": {
+    "byte_reproducible": true,
+    "confirm": {
+      "complete_coverage": true,
+      "family_count": 30,
+      "fixture_sha256": "b3aaa354476dc9127e69231d37a3b57422ceb8b0306b1f2bdccdb850fae8e28b",
+      "trial_count": 60,
+      "trial_family_sequence_sha256": "c82d2eb966e2922192ecd711de3a720dfa78aded424661ef46b2028066b50031"
+    },
+    "family_inventory_sha256": "b55e62bbd933d7ec995db44ddfac5fab21c5f2a7165a33891b03b412ebd5e7fd",
+    "family_schema": "scenario-family/v1",
+    "screen": {
+      "complete_coverage": true,
+      "family_count": 30,
+      "fixture_sha256": "a56b4658ffa70f6fb1aa8d9b6d1ec83c782fe0cddfe2f446a9ccf9553011b8c2",
+      "trial_count": 60,
+      "trial_family_sequence_sha256": "c82d2eb966e2922192ecd711de3a720dfa78aded424661ef46b2028066b50031"
+    },
+    "screen_confirm_disjoint": true
+  },
+  "safety": {
+    "aggregate_hash_boolean_only": true,
+    "candidate_changed": false,
+    "champion_changed": false,
+    "credentials_read": false,
+    "kaggle_submission_executed": false,
+    "network_used": false,
+    "raw_prompts_stored": false,
+    "third_party_data_stored": false
+  },
+  "schema": "sdk-native-trial-family-provenance/v1",
+  "sdk": {
+    "contract_sha256": "6ab6d461da9e082bfecc38298dff4b5aac289ab6c97dc7dff069217ba4793d39",
+    "distribution": "aicomp-sdk",
+    "version": "3.1.2"
+  }
+}
