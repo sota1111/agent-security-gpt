@@ -1,0 +1,208 @@
+{
+  "gates": {
+    "manifest_only": true,
+    "screen_before_confirm": true
+  },
+  "input_contract_sha256": "fe6423d498c66f33ee3ee9b922060c25ac45daa81eb8ae7787b9cba258e76898",
+  "input_count": 5,
+  "inputs": [
+    {
+      "issue": "SOT-2317",
+      "path": "attack.py",
+      "schema": "python-source/v1",
+      "sha256": "6b1e7d8129bfbcc0ed61484e337cdb537ac743faef650b876446cfd957d0f6f0"
+    },
+    {
+      "issue": "SOT-2310",
+      "path": "docs/results/sot-2310-transfer-holdout-provenance.json",
+      "schema": "transfer-holdout-provenance/v1",
+      "sha256": "345d337a0895ea1588869ddbe6366aa1392fd517ebc9a05aa0d571c336284415"
+    },
+    {
+      "issue": "SOT-2292",
+      "path": "docs/results/sot-2292-oracle-drift-anchor.json",
+      "schema": "oracle-drift-anchor/v1",
+      "sha256": "19797c087f749594b3bdc3db7fa8b032b5177626dfdbf7aa12e2ca8b0c53912b"
+    },
+    {
+      "issue": "SOT-2250",
+      "path": "docs/results/sot-2250-kaggle-submission.json",
+      "schema": "kaggle-submission-proof/v1",
+      "sha256": "c902e9dc20fb5047ce096fbb8ed76d12916a84bbe42624bc6bb3caa397cd8acd"
+    },
+    {
+      "issue": "SOT-2269",
+      "path": "docs/results/sot-2269-post-submission-transfer-gap.json",
+      "schema": "post-submission-transfer-gap/v1",
+      "sha256": "ddd01bba1fa5c1e91fd4548e10b7ca3b17848f22f96dbc87f5a1a5225c1f8be5"
+    }
+  ],
+  "issue": "SOT-2321",
+  "parent_issue": "SOT-2317",
+  "safety": {
+    "candidate_changed": false,
+    "champion_changed": false,
+    "credentials_read": false,
+    "kaggle_submission_executed": false,
+    "network_used": false,
+    "private_fixtures_read": false,
+    "protected_payloads_read": false
+  },
+  "schema": "public-contract-scenario-strata-manifest/v1",
+  "sdk": {
+    "contract_sha256": "6ab6d461da9e082bfecc38298dff4b5aac289ab6c97dc7dff069217ba4793d39",
+    "distribution": "aicomp-sdk",
+    "source_count": 4,
+    "sources": [
+      {
+        "path": "aicomp_sdk/core/tools/models.py",
+        "schema": "python-source/v1",
+        "sha256": "61539f52cddbd40e86dfc3cc41e3548bfca78d5de2b469559b67fed90e1f3acd"
+      },
+      {
+        "path": "aicomp_sdk/core/env/api.py",
+        "schema": "python-source/v1",
+        "sha256": "60f1e4424ec3dee73186f87ed1184d2ca1dbc4c2a0022004decec8b6e94c7cb1"
+      },
+      {
+        "path": "aicomp_sdk/attacks/contracts.py",
+        "schema": "python-source/v1",
+        "sha256": "d5ebfee31480fa2ce1e592e9874bf4fee5616868d2bf22d219652b91d9b210ef"
+      },
+      {
+        "path": "aicomp_sdk/scoring.py",
+        "schema": "python-source/v1",
+        "sha256": "13a0969ea6c64b257c46d47490b4259ade3a4965f19d2d6c6fe0ed151f618d4f"
+      }
+    ],
+    "version": "3.1.2"
+  },
+  "strata": {
+    "count": 30,
+    "definitions_sha256": "4fca1ea77ef2fa54b9598d7b2300f80bda647ee3820acc25f531fc9bdbfe3232",
+    "families": [
+      {
+        "definition_sha256": "5389b81cbe3e705b4e850af7c32931ea11819696da4163e98e942f91c64d28ee",
+        "family_id_sha256": "b3e76e7e8a1d6dc326d50e5362311c09d62291137e677ccbe3265c7770a9bbe5"
+      },
+      {
+        "definition_sha256": "bab1eb17a2e363dd8b91ea85f2095a37a56aded4969656560a3e00d7b5257c3e",
+        "family_id_sha256": "81c8a03423fc952deadbb9cca615057a92b8c6e1dc5e520a95381d68f9fa22af"
+      },
+      {
+        "definition_sha256": "2937068a914a8d11ae111c85d86c3d5fafaf352bf1ba0922d1f6767bf7e0ca72",
+        "family_id_sha256": "fd48e3be6158c3705e938b507d03967cc786a7763089bb4726a56d4fe2ca7965"
+      },
+      {
+        "definition_sha256": "f1fb61b2f047bd61c37dd6d0d6534637621c87c61f81c61a956cf8b8cfb33012",
+        "family_id_sha256": "fd60531c07863465feff9200c2a450ada1782623e99bf3a4b3ff78da7c45627f"
+      },
+      {
+        "definition_sha256": "daada670041a1e41e48e58e73ad46221b01050f2402a584e1dd1bf0c1bcfed26",
+        "family_id_sha256": "7e6518836c1706db5dfc3150661dc1731bcac0245ff165334ae35cba813e88ff"
+      },
+      {
+        "definition_sha256": "bb54b05730cc34a3f77824c629f1675d672c4f9620282855df696ab4ca8978d8",
+        "family_id_sha256": "74128c9d29c31834392ed124e10a10e0d0e0291b9f7cadd1c7e6b045c3e8eaae"
+      },
+      {
+        "definition_sha256": "f444f6513f13f250f498044be37840accaaf950ec685db104e14d1f22f65f9f5",
+        "family_id_sha256": "63500c3ed78437d819af2426958e33b9a5aab61f9a01f847017c5bb902c07aaa"
+      },
+      {
+        "definition_sha256": "354f4aed72490f429ed7eae43e57202d156901cd20ba879c3e3083484e805cf0",
+        "family_id_sha256": "76629141bfa6ceefd10bd88fd04315c53d90a4e33b7707824c44ad07197c2af4"
+      },
+      {
+        "definition_sha256": "db4a56346097190ba773dce56259693efb669adc4a25bee0b414ef86cd0b2f5e",
+        "family_id_sha256": "d778e325f991263e46003339d340f81acca53c123047c7cc346ddbd079c6f82e"
+      },
+      {
+        "definition_sha256": "f2b4de756d6947e8c14d3842acbb7f7e7110b7664551c778a20e064d249fbe00",
+        "family_id_sha256": "8c5f33693e6f9568546c5ffeaec9059375c798fc097b6e55977e7653ae6c725d"
+      },
+      {
+        "definition_sha256": "150a3916cb79d9fcb518ae374ab9b559c7038bb5853f0d0fb99477091e4feb91",
+        "family_id_sha256": "2d8d34617bcbf1caf0eba40fb38fa5fd5f3938e08381d029a7da91d55f152076"
+      },
+      {
+        "definition_sha256": "b79cb47e0f60fa859eb53bd459de0fef83cbfcba94e799161dd3ea104f42e24d",
+        "family_id_sha256": "56a8d4a624358c6a37099776b9f3bc71236fe5d413e077e42fb1b829e766f5ac"
+      },
+      {
+        "definition_sha256": "e4aace3c37153e5bbace67bd63e506d4b031b1b9104b732f8b4abdd6b2e0c847",
+        "family_id_sha256": "b6528bcd53bfd654258f67466b27c14a388d5adb4d7e4b9b4d50d4414152e49b"
+      },
+      {
+        "definition_sha256": "aa63990981a2b99278b53c28487157bd2ed2af4fe63e5467c266418016042eb3",
+        "family_id_sha256": "f6ae791e4db230360b43216371b0bd3d55f75565d751dd13b29300d8e5f389e1"
+      },
+      {
+        "definition_sha256": "ae6a961b2d16d043a43a378ee8c8b080ba2e05b71f003adc3d40f6a7fb43b00f",
+        "family_id_sha256": "16cd449a1132893f87e4d4b07bd6b610d18f1f5d3c089e67892237aa60af32c3"
+      },
+      {
+        "definition_sha256": "3522aa030392c77ced082369462c8f6cac8aaea81f18681d039b42e8e39e3db3",
+        "family_id_sha256": "2a0176455ad95d95b974fecd4d45ad5b7526d454dd024c6eed5b6aeb55d20478"
+      },
+      {
+        "definition_sha256": "4cf68b1fbe7a8184d9478b4902c52c64984c2cd7e3ea7d02740898882783dbe5",
+        "family_id_sha256": "71a4af71d25b39741227eef4daaedeee55713805f631e4cb17abe4d72c1f2b7c"
+      },
+      {
+        "definition_sha256": "934bb433eb835cf5706a530892415b6b80375df1287607a0c332af57de137eef",
+        "family_id_sha256": "dcb43f26651b1cdc16bb0362839ec32d92e86e2aa08be8116c7bc3271e31fc66"
+      },
+      {
+        "definition_sha256": "11d7cc58e4688987a29e4f85cdd17de1a2019bd4a50daf671f79410516068968",
+        "family_id_sha256": "dc3cab02d6f8c26031b6fa9f5c4b60b5a8427da93cfa50da975d20adbe31791c"
+      },
+      {
+        "definition_sha256": "dceb8d59b7ce2e2097dbc9dabed56b526a163892615668298cfe36d74ba6f6b2",
+        "family_id_sha256": "d8cef476d40d8f2531955f438edddf818e48a1bb263cf50513eff50ec5e533cc"
+      },
+      {
+        "definition_sha256": "e7e941621540357563157dd518db3b8120674147f7a349238379de0ccd68a22b",
+        "family_id_sha256": "f94aec74c6a1cd0728b754e325378cf7e019e798694d3013c515f7a51e70baa9"
+      },
+      {
+        "definition_sha256": "a8a79616fb5f2bcd38e1789ed0707bd98453e621657fbaead982682e54728cae",
+        "family_id_sha256": "d388221fadbc1d0694f503f217358f02238bc05e1d03004a43acdef9baaacb9d"
+      },
+      {
+        "definition_sha256": "a34fc0a0e5f46f78f78b7382e7225954c4ee2011621b44b9b97c4da25f1964d3",
+        "family_id_sha256": "b458572da8c8d56cc45c6dc63dc3b9fd1f9159dfa3f4497f7868e8e1c3ed33a6"
+      },
+      {
+        "definition_sha256": "5f270b6db90cbd9659efd16f216e23debdd422d4eb6ea87cdd6f7a045e1f02f9",
+        "family_id_sha256": "ace8e2ec39752ce33092437d5be2e70063012c82b3c204e531fd208bf4d4fff7"
+      },
+      {
+        "definition_sha256": "ff63506a366f8e53265ac5270eae41de219abc3723c5943cee3229e2f34c8568",
+        "family_id_sha256": "4a52e6c703cb102c5423daa18f5fd70445258065058d9eada09b34d7f344df71"
+      },
+      {
+        "definition_sha256": "ba92fee0ed9421b0620cb385ff8c04df8d146a20040813387a23b62bbbf55a1d",
+        "family_id_sha256": "1fc7c58b43cac70d832e7804581ecc03e7f35b3acb0d0732dc89837eb0ed4cd1"
+      },
+      {
+        "definition_sha256": "89cb987a4adbed4ba13a9835a0336ab99b3ee996deb69d4d83c9e4f40b1935c4",
+        "family_id_sha256": "bf6d122ac212ef85593752d12268fb2a95d5f41726765d13335dd56e6e7dfa3f"
+      },
+      {
+        "definition_sha256": "7767489c8037354c7497a4a247b95ab06b4f397e117b5286bf3967f20cd6c92a",
+        "family_id_sha256": "a1244fde1eb66976d43baceb39b0f89925ea0b723bb4dcce6e85a3aa2b5032c4"
+      },
+      {
+        "definition_sha256": "97f564da7341b06cc59dc9a1cfa23d53330f96371f3ac64d4ce80ed388c50204",
+        "family_id_sha256": "4b4f67df4d8a6007f26502038c7ec815e71c9c7332f2a3d5bdc90fde937d77c1"
+      },
+      {
+        "definition_sha256": "d5ebe497d9bde3f74fc4ea7464150754f676439b9e00f5058ab68f9bbca1efb1",
+        "family_id_sha256": "da898d547755731d595dca7c8f353ac908a7e216fc4eff3f67a3f56336eab9e5"
+      }
+    ],
+    "inventory_sha256": "b55e62bbd933d7ec995db44ddfac5fab21c5f2a7165a33891b03b412ebd5e7fd",
+    "schema": "tool-side-effect-scope-cartesian/v1"
+  }
+}
