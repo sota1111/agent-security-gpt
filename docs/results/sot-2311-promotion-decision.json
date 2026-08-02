@@ -1,0 +1,18 @@
+{
+  "candidate_code_retained": false,
+  "candidate_count": 0,
+  "eligible_candidate_count": 0,
+  "excluded_candidates": [],
+  "issue": "SOT-2311",
+  "kaggle_submission_executed": false,
+  "ledger_result_recorded": true,
+  "manifest": {
+    "issue": "SOT-2310",
+    "path": "docs/results/sot-2310-transfer-holdout-provenance.json",
+    "schema": "transfer-holdout-provenance/v1",
+    "sha256": "345d337a0895ea1588869ddbe6366aa1392fd517ebc9a05aa0d571c336284415"
+  },
+  "promotion": false,
+  "reason": "no_eligible_fixed_candidate",
+  "schema": "transfer-aware-promotion-decision/v1"
+}
